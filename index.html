@@ -1,0 +1,270 @@
+<!--
+  modeling_debut.html
+  A single-file, responsive portfolio page to debut your modeling photos.
+  Instructions:
+    - Replace images/photo1.jpg ... images/photo8.jpg with your real photo files (same folder or update the paths).
+    - Customize text, social links, and contact email below.
+    - If you'd like captions pulled from LinkedIn or styled differently, tell me and I'll update it.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Suraj Mistry</title>
+  <meta name="description" content="Debut portfolio of Suraj Mistry — modeling photography gallery">
+  <style>
+    :root{--bg:#071226;--card:#071226;--muted:#4f4d4d;--accent:#ffd600}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#d6c3ad 0, #876b4a 100%);color:#001802;line-height:1.4}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ffd66b);display:grid;place-items:center;color:#071226;font-weight:700}
+    h1{margin:0;font-size:1.45rem}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    /* hero */
+    .hero{margin:22px 0 28px;padding:22px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 3px 18px rgba(2,6,6,0.3);display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .intro{padding-right:6px}
+    .cta{display:flex;flex-direction:column;gap:10px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#071226;text-decoration:none;font-weight:600}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px;border-radius:10px;text-decoration:none}
+
+    /* gallery grid */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+    .photo{position:relative;overflow:hidden;border-radius:10px;background:var(--card);cursor:pointer}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+    .photo:hover img{transform:scale(1.06)}
+    .caption{position:absolute;left:8px;bottom:8px;padding:8px 10px;border-radius:8px;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.85));font-size:0.9rem}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(244, 244, 244, 0.42);z-index:120}
+    .modal.open{display:flex}
+    .modal-inner{max-width:90vw;max-height:90vh;background:transparent}
+    .modal-inner img{max-width:100%;max-height:80vh;display:block;border-radius:10px;box-shadow:0 10px 40px rgba(2,6,23,0.8)}
+    .modal-close{position:absolute;top:22px;right:22px;background:rgba(0,0,0,0.4);border-radius:8px;padding:10px;cursor:pointer}
+
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);display:flex;align-items:center;justify-content:space-between}
+    .socials a{margin-left:12px;color:var(--muted);text-decoration:none}
+
+    /* responsive */
+    @media (max-width:1000px){.gallery{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr 240px}}
+    @media (max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.logo{width:48px;height:48px}}
+    @media (max-width:420px){.gallery{grid-template-columns:1fr}h1{font-size:1.15rem}}
+
+    /* helper */
+    .muted{color:var(--muted)}
+    .small{font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">SM</div>
+        <div>
+          <h1>Suraj Mistry</h1>
+          <p class="lead muted">Modeling debut — selected editorial & portfolio shots</p>
+        </div>
+      </div>
+      <nav class="small muted">
+        <a href="#gallery" class="muted">Gallery</a>
+        &nbsp;•&nbsp;
+        <a href="#about" class="muted">About</a>
+        &nbsp;•&nbsp;
+        <a href="#contact" class="muted">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="intro">
+      <div class="intro">
+        <h2 id="intro">Hello — I’m Suraj Mistry</h2>
+        <p class="muted">Welcome to my debut collection. These images feature a range of editorial, commercial, and creative looks. Click any photo to view larger. For bookings and press inquiries, use the contact area below.</p>
+        <div style="margin-top:12px" class="cta">
+          <a class="btn" href="#contact">Book / Contact</a>
+          <a class="secondary" href="#gallery">View Gallery</a>
+        </div>
+      </div>
+      <aside style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+        <div class="small muted">Featured</div>
+        <div class="photo" style="width:100%;height:220px" onclick="openLightbox(0)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/featured.webp" alt="Featured look by [Photographer]">
+        </div>
+        <div class="small muted">Follow</div>
+        <div class="socials">
+          <a href="https://instagram.com/surudge" target="_blank">Instagram</a>
+          <a href="https://linkedin.com/in/surmistry" target="_blank">LinkedIn</a>
+        </div>
+      </aside>
+    </section>
+
+    <main>
+      <h3 id="gallery">Gallery</h3>
+      <div class="gallery" aria-live="polite">
+        <div class="photo" onclick="openLightbox(0)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/featured.webp" alt="Photo 1 — [brief caption]">
+          <!-- <div class="caption">Editorial — [Photographer]</div> -->
+        </div> 
+        <div class="photo" onclick="openLightbox(1)">
+            <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo1.webp" alt="Photo 1 — [brief caption]">
+          <!-- <div class="caption">Editorial — [Photographer]</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(2)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo2.webp" alt="Photo 2 — [brief caption]">
+          <!-- <div class="caption">Commercial — [Stylist]</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(3)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo3.webp" alt="Photo 3 — [brief caption]">
+          <!-- <div class="caption">Runway look</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(4)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo4.webp" alt="Photo 4 — [brief caption]">
+          <!-- <div class="caption">Beauty — [Makeup Artist]</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(5)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo5.webp" alt="Photo 5 — [brief caption]">
+          <!-- <div class="caption">Commercial</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(6)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo6.webp" alt="Photo 6 — [brief caption]">
+          <!-- <div class="caption">Editorial</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(7)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo7.webp" alt="Photo 7 — [brief caption]">
+          <!-- <div class="caption">Portrait</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(8)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo8.webp" alt="Photo 8 — [brief caption]">
+          <!-- <div class="caption">Test shoot</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(9)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo9.webp" alt="Photo 8 — [brief caption]">
+          <!-- <div class="caption">Test shoot</div> -->
+        </div>
+        <div class="photo" onclick="openLightbox(10)">
+          <img src="https://filestoragebasic.s3.us-east-2.amazonaws.com/model-portfolio/webp/photo10.webp" alt="Meesh - Fashion Art Toronto F/W\'24">
+          <!-- <div class="caption">Test shoot</div> -->
+        </div>
+      </div>
+
+      <!-- Modal / Lightbox -->
+      <div id="lightbox" class="modal" role="dialog" aria-modal="true" aria-labelledby="lb-title">
+        <button class="modal-close" aria-label="Close lightbox" onclick="closeLightbox()">✕</button>
+        <div class="modal-inner">
+          <img id="lb-img" src="" alt="Enlarged photo">
+          <div id="lb-title" class="small muted" style="margin-top:8px;text-align:center"></div>
+        </div>
+      </div>
+
+      <section id="about" style="margin-top:28px">
+        <h3>About</h3>
+        <p class="muted">South Asian model with the following measurements
+
+
+
+
+          Height: 6'1
+          Waist: 32"
+          Shoe: 11
+          Chest: 40
+          Hips: 40
+          
+        </p>
+      </section>
+
+      <section id="contact" style="margin-top:18px">
+        <h3>Contact</h3>
+        <p class="muted">For bookings and press: <a href="mailto:mistrs8@gmail.com">mistrs8@gmail.com</a></p>
+        <p class="muted small">Or use this quick contact form (optional):</p>
+        <form action="" onsubmit="alert('This demo page does not submit — replace with your form endpoint or use mailto.');return false;" style="display:flex;flex-direction:column;gap:8px;max-width:520px">
+          <input type="text" placeholder="Name" required style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+          <input type="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+          <textarea placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea>
+          <button class="btn" type="submit" style="width:fit-content">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div class="small muted">© <span id="year"></span> Suraj Mistry — All rights reserved</div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple lightbox logic
+    const images = [
+      'assets/carousel/featured.jpg',
+      'assets/carousel/photo1.jpg',
+      'assets/carousel/photo2.jpg',
+      'assets/carousel/photo3.jpg',
+      'assets/carousel/photo4.jpg',
+      'assets/carousel/photo5.jpg',
+      'assets/carousel/photo6.jpg',
+      'assets/carousel/photo7.jpg',
+      'assets/carousel/photo8.jpg',
+      'assets/carousel/photo9.jpg',
+    ];
+
+    const AWS_URL_PREFIX = 'https://filestoragebasic.s3.us-east-2.amazonaws.com/'
+    
+    const image_urls = [
+        `${AWS_URL_PREFIX}model-portfolio/webp/featured.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo1.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo2.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo3.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo4.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo5.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo6.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo7.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo8.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo9.webp`,
+        `${AWS_URL_PREFIX}model-portfolio/webp/photo10.webp`,
+    ]
+
+    const titles = [
+      'Headshot — Cole B. Photography',
+      '3/4 - Cole B. Photography',
+      'Seated - Cole B. Photography',
+      'Ponder - Cole B. Photography',
+      'Soft - Cole B. Photography',
+      'Waiting - Cole B. Photography',
+      'Aparador - Fashion Art Toronto S/S\'25',
+      'Waratah - Fashion Art Toronto S/S\'25',
+      'L\'uomo Strano - Fashion Art Toronto S/S\'25', 
+      'York Fashion School - Fashion Art Toronto F/W\'24',
+      'Meesh - Fashion Art Toronto F/W\'24'
+    ];
+    let current = 0;
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+
+    function openLightbox(i){
+      current = i;
+      lbImg.src = image_urls[i];
+      lbImg.alt = titles[i];
+      lbTitle.textContent = titles[i];
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow='auto'; }
+
+    // keyboard navigation
+    window.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowRight'){ current=(current+1)%images.length; openLightbox(current); }
+      if(e.key === 'ArrowLeft'){ current=(current-1+images.length)%images.length; openLightbox(current); }
+    });
+
+    // close when clicking backdrop
+    lb.addEventListener('click',(e)=>{ if(e.target === lb) closeLightbox(); });
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
